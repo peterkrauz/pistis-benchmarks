@@ -1,8 +1,8 @@
 defmodule PlainBenchmark.Web do
   use Plug.Router
 
-  plug(:match)
-  plug(:dispatch)
+  plug :match
+  plug :dispatch
 
   def child_spec(_arg) do
     Plug.Adapters.Cowboy.child_spec(
@@ -10,5 +10,9 @@ defmodule PlainBenchmark.Web do
       plug: __MODULE__,
       options: [port: Application.fetch_env!(:plain_benchmark, :port)],
     )
+  end
+
+  post "/some-url" do
+    # TODO
   end
 end

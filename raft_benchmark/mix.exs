@@ -23,6 +23,9 @@ defmodule RaftBenchmark.MixProject do
     [
       {:plug, "~> 1.13"},
       {:cowboy, "~> 2.9"},
+      {:plug_cowboy, "~> 2.0"},
+
+      # Benchmark-specific
       {:ra, "~> 2.0"},
     ]
   end
