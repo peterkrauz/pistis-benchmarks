@@ -3,7 +3,7 @@ defmodule PistisBenchmark.Application do
 
   @impl true
   def start(_type, _args) do
-    children = [PistisBenchmark.Web]
+    children = [PistisBenchmark.Web, Pistis.Core.Entrypoint]
     opts = [strategy: :one_for_one, name: PistisBenchmark.Supervisor]
     Supervisor.start_link(children, opts)
   end

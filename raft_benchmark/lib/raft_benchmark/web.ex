@@ -1,5 +1,6 @@
 defmodule RaftBenchmark.Web do
   use Plug.Router
+  alias Plug.Conn
 
   plug :match
   plug :dispatch
@@ -12,7 +13,9 @@ defmodule RaftBenchmark.Web do
     )
   end
 
-  post "/some-url" do
-    # TODO
+  get "/benchmark" do
+    conn
+    |> Conn.put_resp_content_type("text/plain")
+    |> Conn.send_resp(200, "ok from #{Node.self()} - raft_benchmark")
   end
 end
