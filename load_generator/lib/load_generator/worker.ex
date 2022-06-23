@@ -8,6 +8,7 @@ defmodule LoadGenerator.Worker do
   def start_link(args), do: GenServer.start_link(@me, args)
 
   def init(state) do
+    LoadGenerator.ScheduledShutdown.start_link([])
     LoadGenerator.FileWriter.clean_file()
     schedule_work()
     {:ok, state}

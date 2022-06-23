@@ -1,4 +1,4 @@
-defmodule PlainBenchmark.OperationCounter do
+defmodule PlainBenchmark.Instrumentation.OperationCounter do
   use GenServer
 
   @me __MODULE__

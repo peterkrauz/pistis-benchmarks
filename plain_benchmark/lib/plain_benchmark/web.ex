@@ -20,7 +20,7 @@ defmodule PlainBenchmark.Web do
     command = Map.get(query_params, "command")
     args = Map.get(query_params, "args")
 
-    PlainBenchmark.CommandRouter.route_to_machine(command, args)
+    PlainBenchmark.Instrumentation.CommandRouter.route_to_machine(command, args)
 
     conn
     |> Conn.put_resp_content_type("text/plain")

@@ -1,14 +1,14 @@
 defmodule LoadGenerator.CommandGenerator do
   def random_commands() do
     [
-      [command: "get", args: ["a"]],
-      [command: "get", args: [random_letter()]],
-      [command: "get", args: [random_letter()]],
-      [command: "put", args: ["a", 1]],
-      [command: "put", args: [random_letter(), random_letter()]],
-      [command: "put", args: [random_letter(), random_letter()]],
+      [command: "get", args: [random_arg()]],
+      [command: "get", args: [random_arg()]],
+      [command: "put", args: [random_arg(), random_arg()]],
+      [command: "put", args: [random_arg(), random_arg()]],
     ]
   end
 
-  defp random_letter(), do: <<Enum.random('abcdefghijklmnopqrstuvwxyz')>>
+  defp random_arg() do
+    for _ <- 1..:rand.uniform(2), into: "", do: <<Enum.random('abcdefghijklmnopqrstuvwxyz')>>
+  end
 end

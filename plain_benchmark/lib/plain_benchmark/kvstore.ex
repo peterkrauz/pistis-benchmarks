@@ -1,6 +1,7 @@
 defmodule PlainBenchmark.KVStore do
   use GenServer
   import String
+  alias PlainBenchmark.Instrumentation
 
   @me __MODULE__
 
@@ -11,19 +12,19 @@ defmodule PlainBenchmark.KVStore do
   def get(key) when is_atom(key), do: perform_get(key)
   def get(key), do: perform_get(to_atom(key))
   defp perform_get(key) do
-    PlainBenchmark.OperationCounter.increment()
+    Instrumentation.OperationCounter.increment()
     GenServer.call(@me, {:get, key})
   end
 
   def put(key, value) when is_atom(key), do: perform_put(key, value)
   def put(key, value), do: perform_put(to_atom(key), to_atom(value))
   defp perform_put(key, value) do
-    PlainBenchmark.OperationCounter.increment()
+    Instrumentation.OperationCounter.increment()
     GenServer.call(@me, {:put, key, value})
   end
 
   def data() do
-    PlainBenchmark.OperationCounter.increment()
+    Instrumentation.OperationCounter.increment()
     GenServer.call(@me, {:data})
   end
 

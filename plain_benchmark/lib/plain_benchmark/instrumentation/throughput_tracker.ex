@@ -1,5 +1,6 @@
-defmodule PlainBenchmark.ThroughputTracker do
+defmodule PlainBenchmark.Instrumentation.ThroughputTracker do
   use GenServer
+  alias PlainBenchmark.Instrumentation
 
   @me __MODULE__
   @heartbeat 1000
@@ -7,14 +8,14 @@ defmodule PlainBenchmark.ThroughputTracker do
   def start_link(_args), do: GenServer.start_link(@me, 0, name: @me)
 
   def init(state) do
-    PlainBenchmark.FileWriter.clean_file()
+    Instrumentation.FileWriter.clean_file()
     schedule_work()
     {:ok, state}
   end
 
   def handle_info(:work, last_ops_counter) do
-    new_ops_counter = PlainBenchmark.OperationCounter.read()
-    PlainBenchmark.FileWriter.write(new_ops_counter - last_ops_counter)
+    new_ops_counter = Instrumentation.OperationCounter.read()
+    Instrumentation.FileWriter.write(new_ops_counter - last_ops_counter)
     schedule_work()
     {:noreply, new_ops_counter}
   end

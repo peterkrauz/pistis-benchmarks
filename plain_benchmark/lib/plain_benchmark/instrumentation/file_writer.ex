@@ -1,4 +1,4 @@
-defmodule PlainBenchmark.FileWriter do
+defmodule PlainBenchmark.Instrumentation.FileWriter do
   @file_path "throughput.txt"
 
   def write(content) do
