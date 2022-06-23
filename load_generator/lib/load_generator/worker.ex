@@ -1,7 +1,7 @@
 defmodule LoadGenerator.Worker do
   @me __MODULE__
 
-  @heartbeat 100
+  @heartbeat Application.fetch_env!(:load_generator, :heartbeat)
   @target_host Application.fetch_env!(:load_generator, :target_host)
   @target_port Application.fetch_env!(:load_generator, :target_port)
 

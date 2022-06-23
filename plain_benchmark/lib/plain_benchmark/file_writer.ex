@@ -1,5 +1,5 @@
-defmodule LoadGenerator.FileWriter do
-  @file_path "latency.txt"
+defmodule PlainBenchmark.FileWriter do
+  @file_path "throughput.txt"
 
   def write(content) do
     {:ok, file} = File.open(@file_path, [:append, {:delayed_write, 100, 20}])

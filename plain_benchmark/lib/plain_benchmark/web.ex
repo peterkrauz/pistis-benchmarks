@@ -20,11 +20,10 @@ defmodule PlainBenchmark.Web do
     command = Map.get(query_params, "command")
     args = Map.get(query_params, "args")
 
-    IO.puts("Got command: #{command}")
-    IO.puts("Got args: #{args}")
+    PlainBenchmark.CommandRouter.route_to_machine(command, args)
 
     conn
     |> Conn.put_resp_content_type("text/plain")
-    |> Conn.send_resp(200, "ok from #{Node.self()} - plain_benchmark")
+    |> Conn.send_resp(200, "ok")
   end
 end
