@@ -14,6 +14,15 @@ defmodule PlainBenchmark.Web do
   end
 
   get "/benchmark" do
+    conn = Plug.Conn.fetch_query_params(conn)
+    query_params = conn.params
+
+    command = Map.get(query_params, "command")
+    args = Map.get(query_params, "args")
+
+    IO.puts("Got command: #{command}")
+    IO.puts("Got args: #{args}")
+
     conn
     |> Conn.put_resp_content_type("text/plain")
     |> Conn.send_resp(200, "ok from #{Node.self()} - plain_benchmark")

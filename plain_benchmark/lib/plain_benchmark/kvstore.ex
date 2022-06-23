@@ -11,11 +11,11 @@ defmodule PlainBenchmark.KVStore do
 
   def put(key, value), do: GenServer.call(@me, {:put, key, value})
 
-  def handle_call({:get, key}, from, state) do
+  def handle_call({:get, key}, _from, state) do
     {:reply, Map.get(state, key), state}
   end
 
-  def handle_call({:put, key, value}, from, state) do
+  def handle_call({:put, key, value}, _from, state) do
     {:reply, :ok, Map.put(state, key, value)}
   end
 end

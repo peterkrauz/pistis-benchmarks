@@ -8,42 +8,34 @@ defmodule LoadGenerator.Worker do
   def start_link(args), do: GenServer.start_link(@me, args)
 
   def init(state) do
+    LoadGenerator.FileWriter.clean_file()
     schedule_work()
     {:ok, state}
   end
 
   def handle_info(:work, state) do
-    # Alternative would be: :os.system_time(:millisecond)
-    start_stamp = DateTime.utc_now()
-
-    HTTPoison.get(request_url())
-    |> process_response()
-
-    end_stamp = DateTime.utc_now()
-    diff = DateTime.diff(end_stamp, start_stamp)
-
-    if LoadGenerator.Instrumentation.can_log(self()) do
-
-    end
+    start_stamp = :os.system_time(:millisecond)
+    HTTPoison.get(request_url()) |> process_response()
+    end_stamp = :os.system_time(:millisecond)
+    write_to_file(end_stamp - start_stamp)
 
     schedule_work()
     {:noreply, state}
-  end
-
-  def handle_info(_, _) do
-    :ok
   end
 
   defp schedule_work(), do: Process.send_after(self(), :work, @heartbeat)
 
   defp request_url(), do: "http://#{@target_host}:#{@target_port}/benchmark"
 
-  def process_response({:ok, response}) do
-    result = Map.get(response, :body)
-    IO.puts("Got '#{result}' from url #{request_url()}")
+  defp process_response({:ok, response}), do: Map.get(response, :body)
+
+  defp process_response({:error, %HTTPoison.Error{id: _, reason: reason}}) do
+    IO.puts("Something went wrong when making a request ~> #{request_url()}. Error code: #{reason}")
   end
 
-  def process_response({:error, %HTTPoison.Error{id: _, reason: reason}}) do
-    IO.puts("Something went wrong when making a request ~> #{request_url()}. Error code: #{reason}")
+  defp write_to_file(content) do
+    if LoadGenerator.Instrumentation.can_log(self()) do
+      LoadGenerator.FileWriter.write(content)
+    end
   end
 end
