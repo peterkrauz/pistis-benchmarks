@@ -20,6 +20,8 @@ defmodule RaftBenchmark.Web do
     command = Map.get(query_params, "command")
     args = Map.get(query_params, "args")
 
+    RaftBenchmark.CommandRouter.route_to_machine(command, args)
+
     conn
     |> Conn.put_resp_content_type("text/plain")
     |> Conn.send_resp(200, "ok")

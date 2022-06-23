@@ -1,6 +1,6 @@
 defmodule RaftBenchmark.Cluster do
   def connect_replicas() do
-    # Requires other beam instances to be created manually
+    # Demands that other BEAM instances ([:raft_node_1@localhost, :raft_node_2@localhost, ...]) have been created.
     replicas = Node.list()
     |> Enum.filter(&is_raft_replica/1)
     |> Enum.map(&start_raft/1)
@@ -12,7 +12,7 @@ defmodule RaftBenchmark.Cluster do
   end
 
   defp is_raft_replica(replica_address) do
-    Atom.to_string(node) |> String.contains?("raft")
+    Atom.to_string(node) |> String.contains?("raft_node")
   end
 
   defp start_raft(replica_address) do
@@ -25,4 +25,9 @@ defmodule RaftBenchmark.Cluster do
   defp cluster_name(), do: :raft
 
   defp machine_spec(), do: {:module, RaftBenchmark.KVStore, %{}}
+
+  def raft_leader() do
+    {:ok, members, leader} = :ra.members({cluster_name(), :raft_node_1@localhost})
+    leader
+  end
 end
