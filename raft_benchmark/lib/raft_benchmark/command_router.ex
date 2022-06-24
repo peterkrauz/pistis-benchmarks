@@ -6,6 +6,6 @@ defmodule RaftBenchmark.CommandRouter do
 
   defp send_command(command) do
     RaftBenchmark.Instrumentation.OperationCounter.increment()
-    :ra.process_command(RaftBenchmark.Cluster.raft_leader(), command)
+    :ra.process_command(RaftBenchmark.Cluster.any_member(), command)
   end
 end

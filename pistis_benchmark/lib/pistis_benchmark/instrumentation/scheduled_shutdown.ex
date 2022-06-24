@@ -13,7 +13,7 @@ defmodule PistisBenchmark.Instrumentation.ScheduledShutdown do
   end
 
   def handle_info(:shutdown, state) do
-    target_module = PistisBenchmark.Supervisor
+    target_module = PistisBenchmark.Boot
     IO.puts("Shutting down #{target_module}")
 
     target_module

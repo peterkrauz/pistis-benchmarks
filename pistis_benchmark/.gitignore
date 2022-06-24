@@ -24,3 +24,5 @@ pistis_benchmark-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+*_node_*

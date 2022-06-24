@@ -4,7 +4,7 @@ defmodule RaftBenchmark.Cluster do
   def connect_replicas() do
     # Demands that other BEAM instances ([:raft_node_1@localhost, :raft_node_2@localhost, ...]) have been created.
     Range.new(1, @cluster_size)
-    |> Enum.map(fn index -> :"raft_node_#{index}@localhost" end)
+    |> Enum.map(fn index -> :"raft_node_#{index}@127.0.0.1" end)
     |> Enum.map(&Node.connect/1)
 
     replicas = Node.list()
@@ -33,7 +33,12 @@ defmodule RaftBenchmark.Cluster do
   defp machine_spec(), do: {:module, RaftBenchmark.KVStore, %{}}
 
   def raft_leader() do
-    {:ok, _, leader} = :ra.members({cluster_name(), :raft_node_1@localhost})
+    {:ok, _, leader} = :ra.members({cluster_name(), :"raft_node_1@127.0.0.1"})
     leader
+  end
+
+  def any_member() do
+    {:ok, members, _} = :ra.members({cluster_name(), :"raft_node_1@127.0.0.1"})
+    Enum.at(members, :rand.uniform(length(members) - 1))
   end
 end
