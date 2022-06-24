@@ -7,7 +7,7 @@ defmodule RaftBenchmark.Instrumentation.FileWriter do
 
   def clean_file(), do: File.write!(file_path(), "")
 
-  defp file_path(), do "throughput_#{replica_count()}_replicas.txt"
+  defp file_path(), do: "throughput_#{replica_count()}_replicas.txt"
 
   defp replica_count() do
     Application.fetch_env!(:raft_benchmark, :cluster_size)
