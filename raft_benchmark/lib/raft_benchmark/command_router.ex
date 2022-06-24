@@ -5,6 +5,7 @@ defmodule RaftBenchmark.CommandRouter do
   defp machine_command_for_args([key, value]), do: send_command({:put, key, value})
 
   defp send_command(command) do
+    RaftBenchmark.Instrumentation.OperationCounter.increment()
     :ra.process_command(RaftBenchmark.Cluster.raft_leader(), command)
   end
 end

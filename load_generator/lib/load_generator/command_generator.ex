@@ -1,4 +1,6 @@
 defmodule LoadGenerator.CommandGenerator do
+  @alphabet 'abcdefghijklmnopqrstuvwxyz'
+
   def random_commands() do
     [
       [command: "get", args: [random_arg()]],
@@ -9,6 +11,6 @@ defmodule LoadGenerator.CommandGenerator do
   end
 
   defp random_arg() do
-    for _ <- 1..:rand.uniform(2), into: "", do: <<Enum.random('abcdefghijklmnopqrstuvwxyz')>>
+    for _ <- 1..:rand.uniform(2), into: "", do: <<Enum.random(@alphabet)>>
   end
 end
