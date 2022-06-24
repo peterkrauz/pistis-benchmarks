@@ -27,7 +27,7 @@ defmodule PistisBenchmark.MixProject do
       {:plug_cowboy, "~> 2.0"},
 
       # Benchmark-specific
-      {:pistis, "~> 0.1.8"},
+      {:pistis, "~> 0.1.9"},
     ]
   end
 end

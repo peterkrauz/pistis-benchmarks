@@ -40,7 +40,7 @@ defmodule LoadGenerator.Worker do
   defp process_response({:ok, response}), do: Map.get(response, :body)
 
   defp process_response({:error, %HTTPoison.Error{id: _, reason: reason}}) do
-    IO.puts("Something went wrong when making a request ~> #{request_url()}. Error code: #{reason}")
+    IO.puts("Error ~> #{request_url()}")
   end
 
   defp write_to_file(content) do
