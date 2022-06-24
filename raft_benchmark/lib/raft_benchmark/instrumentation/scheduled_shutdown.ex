@@ -13,7 +13,7 @@ defmodule RaftBenchmark.Instrumentation.ScheduledShutdown do
   end
 
   def handle_info(:shutdown, state) do
-    target_module = RaftBenchmark.Supervisor
+    target_module = RaftBenchmark.Boot
     IO.puts("Shutting down #{target_module}")
 
     target_module
