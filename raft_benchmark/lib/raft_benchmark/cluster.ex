@@ -3,8 +3,18 @@ defmodule RaftBenchmark.Cluster do
 
   def connect_replicas() do
     Range.new(1, @cluster_size)
-    |> Enum.map(fn index -> :"raft_node_#{index}@10.10.1.{index + 1}" end)
+    |> Enum.map(fn index -> connect_to_replica(index) end)
     |> Enum.map(&Node.connect/1)
+  end
+
+  def connect_to_replica(index) do
+    address = "raft_node_#{index}@10.10.1.#{index + 1}"
+    IO.puts("Connecting to #{address}")
+    String.to_atom(address)
+  end
+
+  def boot_replicas() do
+    connect_replicas()
 
     replicas = Node.list()
     |> Enum.filter(&is_raft_replica/1)
