@@ -41,7 +41,7 @@ defmodule RaftBenchmark.Cluster do
   end
 
   defp to_raft_id(replica_address) do
-    IO.puts("to_raft_id: #{replica_address} ~> #{{cluster_name(), replica_address}}")
+    IO.puts("to_raft_id: #{replica_address} ~> #{inspect({cluster_name(), replica_address})}")
     {cluster_name(), replica_address}
   end
 
