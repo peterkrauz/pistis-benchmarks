@@ -9,7 +9,7 @@ defmodule RaftBenchmark.Cluster do
 
     raft_server_ids = replicas |> Enum.map(&to_raft_id/1)
     IO.puts("Raft server IDs:")
-    raft_server_ids |> Enum.map(fn rsi -> IO.puts("#{inspect(rsi)}") end)
+    raft_server_ids |> Enum.map(fn rsi -> inspect(rsi)) end)
     :ra.start_cluster(:default, cluster_name(), machine_spec(), raft_server_ids)
   end
 
