@@ -57,12 +57,12 @@ defmodule RaftBenchmark.Cluster do
   defp machine_spec(), do: {:module, RaftBenchmark.KVStore, %{}}
 
   def raft_leader() do
-    {:ok, _, leader} = :ra.members({cluster_name(), :"raft_node_1@10.10.1.2"})
+    {:ok, _, leader} = :ra.members({cluster_name(), Map.get(@addresses, 0)})
     leader
   end
 
   def any_member() do
-    {:ok, members, _} = :ra.members({cluster_name(), :"raft_node_1@10.10.1.2"})
+    {:ok, members, _} = :ra.members({cluster_name(), Map.get(@addresses, 0)})
     Enum.at(members, :rand.uniform(length(members) - 1))
   end
 end
