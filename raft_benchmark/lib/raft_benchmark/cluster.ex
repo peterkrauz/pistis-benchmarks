@@ -1,5 +1,13 @@
 defmodule RaftBenchmark.Cluster do
   @cluster_size Application.fetch_env!(:raft_benchmark, :cluster_size)
+  @addresses %{
+    1 => "raft_node_1@10.10.1.3",
+    2 => "raft_node_2@10.10.1.3",
+    3 => "raft_node_3@10.10.1.3",
+    4 => "raft_node_4@10.10.1.4",
+    5 => "raft_node_5@10.10.1.4",
+    6 => "raft_node_6@10.10.1.4",
+  }
 
   def boot_replicas() do
     connect_replicas()
@@ -8,8 +16,6 @@ defmodule RaftBenchmark.Cluster do
     :timer.sleep(3500)
 
     raft_server_ids = replicas |> Enum.map(&to_raft_id/1)
-    IO.puts("Raft server IDs:")
-    raft_server_ids |> Enum.map(fn {a, b} -> IO.puts("{#{Atom.to_string(a)}, #{Atom.to_string(b)}}") end)
     :ra.start_cluster(:default, cluster_name(), machine_spec(), raft_server_ids)
   end
 
@@ -20,7 +26,7 @@ defmodule RaftBenchmark.Cluster do
   end
 
   def connect_to_replica(index) do
-    address = "raft_node_#{index}@10.10.1.#{index + 1}"
+    address = Map.get(@addresses, index)
     IO.puts("Connecting to #{address}")
     String.to_atom(address)
   end
