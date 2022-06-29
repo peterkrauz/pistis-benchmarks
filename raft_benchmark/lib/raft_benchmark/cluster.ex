@@ -2,10 +2,9 @@ defmodule RaftBenchmark.Cluster do
   @cluster_size Application.fetch_env!(:raft_benchmark, :cluster_size)
 
   def connect_replicas() do
-    # Demands that other BEAM instances ([:raft_node_1@localhost, :raft_node_2@localhost, ...]) have been created.
-    # Range.new(1, @cluster_size)
-    # |> Enum.map(fn index -> :"raft_node_#{index}@127.0.0.1" end)
-    # |> Enum.map(&Node.connect/1)
+    Range.new(1, @cluster_size)
+    |> Enum.map(fn index -> :"raft_node_#{index}@10.10.1.{index + 1}" end)
+    |> Enum.map(&Node.connect/1)
 
     replicas = Node.list()
     |> Enum.filter(&is_raft_replica/1)
@@ -17,11 +16,11 @@ defmodule RaftBenchmark.Cluster do
     :ra.start_cluster(:default, cluster_name(), machine_spec(), raft_server_ids)
   end
 
-  defp is_raft_replica(replica_address) do
+  def is_raft_replica(replica_address) do
     Atom.to_string(replica_address) |> String.contains?("raft_node")
   end
 
-  defp start_raft(replica_address) do
+  def start_raft(replica_address) do
     :rpc.call(replica_address, :ra, :start, [])
     replica_address
   end
