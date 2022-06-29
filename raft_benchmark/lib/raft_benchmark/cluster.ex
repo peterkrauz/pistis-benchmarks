@@ -4,13 +4,13 @@ defmodule RaftBenchmark.Cluster do
     1 => "raft_node_1@10.10.1.3",
     2 => "raft_node_2@10.10.1.3",
     3 => "raft_node_3@10.10.1.3",
-    4 => "raft_node_3@10.10.1.3",
-    5 => "raft_node_3@10.10.1.3",
+    4 => "raft_node_4@10.10.1.3",
+    5 => "raft_node_5@10.10.1.3",
 
-    6 => "raft_node_4@10.10.1.4",
-    7 => "raft_node_5@10.10.1.4",
-    8 => "raft_node_6@10.10.1.4",
-    9 => "raft_node_6@10.10.1.4",
+    6 => "raft_node_6@10.10.1.4",
+    7 => "raft_node_7@10.10.1.4",
+    8 => "raft_node_8@10.10.1.4",
+    9 => "raft_node_9@10.10.1.4",
   }
 
   def boot_replicas() do
