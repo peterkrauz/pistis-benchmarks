@@ -1,6 +1,6 @@
 import Config
 
-config :load_generator, target_host: "localhost"
+config :load_generator, target_host: "10.10.1.2"
 config :load_generator, target_port: 5455
 config :load_generator, worker_count: 5
 config :load_generator, heartbeat: 10
