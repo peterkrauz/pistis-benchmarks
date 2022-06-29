@@ -3,9 +3,9 @@ defmodule RaftBenchmark.Cluster do
 
   def connect_replicas() do
     # Demands that other BEAM instances ([:raft_node_1@localhost, :raft_node_2@localhost, ...]) have been created.
-    Range.new(1, @cluster_size)
-    |> Enum.map(fn index -> :"raft_node_#{index}@127.0.0.1" end)
-    |> Enum.map(&Node.connect/1)
+    # Range.new(1, @cluster_size)
+    # |> Enum.map(fn index -> :"raft_node_#{index}@127.0.0.1" end)
+    # |> Enum.map(&Node.connect/1)
 
     replicas = Node.list()
     |> Enum.filter(&is_raft_replica/1)
