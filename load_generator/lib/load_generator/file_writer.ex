@@ -4,11 +4,11 @@ defmodule LoadGenerator.FileWriter do
 
   def write(content) do
     {:ok, file} = File.open(file_path, [:append, {:delayed_write, 100, 20}])
-    IO.binwrite(file, "\n#{content}")
+    IO.binwrite(file, "\n#{:calendar.universal_time()}, #{content}")
     File.close(file)
   end
 
   def clean_file(), do: File.write!(file_path, "")
 
-  defp file_path(), do: "latency_#{@worker_count}_clients_port_#{@target_port}.txt"
+  defp file_path(), do: "latency_#{@worker_count}_clients_port_#{@target_port}.csv"
 end
