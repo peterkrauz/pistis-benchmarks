@@ -7,11 +7,15 @@ defmodule PistisBenchmark.Instrumentation.FileWriter do
 
   def clean_file(), do: File.write!(file_path(), "")
 
-  defp file_path(), do: "throughput_#{replica_count()}_replicas.txt"
+  defp file_path(), do: "throughput_#{client_count()}_clients_#{replica_count()}_replicas.txt"
 
   defp replica_count() do
     cluster_size = Application.get_env(:pistis, :cluster_size, 0)
     known_hosts = Application.get_env(:pistis, :known_hosts, [])
     max(cluster_size, length(known_hosts))
+  end
+
+  defp client_count() defmodule RaftBenchmark.Instrumentation.FileWriter do
+    Application.fetch_env!(:pistis_benchmark, :worker_count)
   end
 end
