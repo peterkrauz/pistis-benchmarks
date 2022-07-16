@@ -10,7 +10,7 @@ defmodule PlainBenchmark.Instrumentation.FileWriter do
 
   def clean_file(), do: File.write!(file_path(), "")
 
-  defp client_count() defmodule RaftBenchmark.Instrumentation.FileWriter do
+  defp client_count() do
     Application.fetch_env!(:plain_benchmark, :worker_count)
   end
 end
