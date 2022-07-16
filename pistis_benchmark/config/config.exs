@@ -1,8 +1,8 @@
 import Config
 
 config :pistis_benchmark, port: 5456
-config :pistis_benchmark, shutdown_in: 300000
-config :pistis_benchmark, worker_count: 2 #4#8#16#32#64
+config :pistis_benchmark, shutdown_in: 150000
+config :pistis_benchmark, worker_count: 2#4#8#16#32#64
 
 config :pistis, machine: PistisBenchmark.KVStore
 config :pistis, known_hosts: [
