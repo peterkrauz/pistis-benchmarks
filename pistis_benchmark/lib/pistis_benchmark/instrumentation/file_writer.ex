@@ -1,7 +1,7 @@
 defmodule PistisBenchmark.Instrumentation.FileWriter do
   def write(content) do
     {:ok, file} = File.open(file_path(), [:append, {:delayed_write, 100, 20}])
-    IO.binwrite(file, "\n#{:calendar.universal_time()},#{content}")
+    IO.binwrite(file, "\n#{:os.system_time(:millisecond)},#{content}")
     File.close(file)
   end
 
