@@ -9,7 +9,7 @@ defmodule PlainBenchmark.Web do
     Plug.Adapters.Cowboy.child_spec(
       scheme: :http,
       plug: __MODULE__,
-      options: [port: Application.fetch_env!(:plain_benchmark, :port)],
+      options: [port: Application.fetch_env!(:plain_benchmark, :port)]
     )
   end
 
