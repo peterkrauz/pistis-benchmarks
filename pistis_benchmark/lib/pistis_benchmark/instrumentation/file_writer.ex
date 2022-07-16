@@ -7,7 +7,7 @@ defmodule PistisBenchmark.Instrumentation.FileWriter do
 
   def clean_file(), do: File.write!(file_path(), "")
 
-  defp file_path(), do: "throughput_#{client_count()}_clients_#{replica_count()}_replicas.csv"
+  defp file_path(), do: "throughput_#{client_count()}_clients.csv"
 
   defp replica_count() do
     cluster_size = Application.get_env(:pistis, :cluster_size, 0)
