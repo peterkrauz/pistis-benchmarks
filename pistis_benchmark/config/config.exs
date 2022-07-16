@@ -6,13 +6,7 @@ config :pistis_benchmark, worker_count: 2 #4#8#16#32#64
 
 config :pistis, machine: PistisBenchmark.KVStore
 config :pistis, known_hosts: [
-  :"pistis_node_1@10.10.1.3",
-  :"pistis_node_2@10.10.1.4",
-  :"pistis_node_3@10.10.1.5",
-  :"pistis_node_4@10.10.1.6",
-  :"pistis_node_5@10.10.1.7",
-  :"pistis_node_6@10.10.1.8",
-  :"pistis_node_7@10.10.1.9",
-  :"pistis_node_8@10.10.1.10",
-  :"pistis_node_9@10.10.1.11",
+  :"pistis_node_1@10.10.1.1",
+  :"pistis_node_2@10.10.1.2",
+  :"pistis_node_3@10.10.1.3",
 ]
