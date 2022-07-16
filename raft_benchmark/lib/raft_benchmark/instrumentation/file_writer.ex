@@ -13,7 +13,7 @@ defmodule RaftBenchmark.Instrumentation.FileWriter do
     Application.fetch_env!(:raft_benchmark, :cluster_size)
   end
 
-  defp client_count() defmodule RaftBenchmark.Instrumentation.FileWriter do
+  defp client_count() do
     Application.fetch_env!(:raft_benchmark, :worker_count)
   end
 end
